@@ -1,32 +1,114 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Registeration</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+    <title>Registro | Travello</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+    <link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet">
+    <style>
+        .register-container {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('{% static "images/footer_1.jpg" %}');
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .register-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        .register-title {
+            color: #2d3436;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .form-control {
+            height: 45px;
+            margin-bottom: 15px;
+        }
+        .btn-register {
+            background: #05375d;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .messages {
+            margin-top: 20px;
+        }
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .error {
+            background: #ff7675;
+            color: white;
+        }
+        .success {
+            background: #05375d;
+            color: #2d3436;
+        }
+    </style>
 </head>
 <body>
-    <form action="register" method="post">
-        {% csrf_token %}
+    <div class="register-container">
+        <div class="register-box">
+            <h2 class="register-title">Regístrate en Travello</h2>
+            
+            <form action="register" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="first_name" class="form-control" placeholder="Nombre" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="last_name" class="form-control" placeholder="Apellido" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="Nombre de usuario" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password1" class="form-control" placeholder="Contraseña" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password2" class="form-control" placeholder="Confirmar contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-register">Crear Cuenta</button>
+            </form>
 
-        <input type="text" name="first_name" placeholder="First Name"><br>
-        <input type="text" name="last_name" placeholder="Last Name"><br>
-        <input type="text" name="username" placeholder="Username"><br>
-        <input type="email" name="email" placeholder="email"><br>
-        <input type="password" name="password1" placeholder="Password"><br>
-        <input type="password" name="password2" placeholder="Confirm Password"><br>
-        <input type="Submit">
+            <div class="text-center mt-3">
+                <a href="{% url 'login' %}" style="color: #0984e3;">¿Ya tienes cuenta? Inicia Sesión</a>
+            </div>
 
-    </form>
-
-    <div>
-        {% for message in messages %}
-        <h3> {{message}}  </h3>
-        {% endfor %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+    <script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
 </body>
 </html>
